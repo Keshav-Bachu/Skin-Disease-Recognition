@@ -1,2 +1,5 @@
 **/*.jpg
 **/*.json
+**/*.DS_Store
+**/*.txt
+**/*.png
