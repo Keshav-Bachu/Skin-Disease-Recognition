@@ -5,7 +5,7 @@ Created on Wed Dec  5 17:01:26 2018
 
 @author: keshavbachu
 """
-examplesEach = 5
+examplesEach = 3
 pictureX = 500
 pictureY = 500
 
@@ -18,14 +18,17 @@ import os
 file = 'Data Folder/' 
 allFiles = os.listdir(file)
 picturePaths = []
-allFiles.remove('.DS_Store')
+if '.DS_Store' in allFiles:
+    allFiles.remove('.DS_Store')
 for folder in allFiles:
     fileTemp = file + folder + "/Pictures/"
     print(fileTemp)
     
     #figure out a way to do this without a loop, possibly broadcast the string
     tempDir = os.listdir(fileTemp)
-    tempDir.remove('.DS_Store')
+    
+    if '.DS_Store' in tempDir:
+        tempDir.remove('.DS_Store')
     for i in range(len(tempDir)):
         tempDir[i] = fileTemp + tempDir[i]
     picturePaths.append(tempDir)
