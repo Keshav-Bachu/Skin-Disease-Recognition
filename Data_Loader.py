@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 import cv2
 import os
+import ImageNetwork
 
 #load all file paths
 file = 'Data Folder/' 
@@ -37,6 +38,7 @@ for folder in allFiles:
 #get all the pictures into sets
 pictureHolder = []
 pictureOutput = []
+pictureCode = 0
 
 for folder in picturePaths:
     counter = 0
@@ -48,9 +50,17 @@ for folder in picturePaths:
         pictureHolder.append(np.asanyarray(picture))
         counter += 1
         
+        pictureOutput.append(pictureCode)
+        
         #maintain needed size
-        if(counter > examplesEach):
+        if(counter >= examplesEach):
+            pictureCode += 1
             break
 
 #numpy array with dimensions [# examples, pictureX, pictureY, 3]    
 pictureHolder = np.asanyarray(pictureHolder)
+pictureOutput = np.asanyarray(pictureOutput)
+pictureOutput = pictureOutput.reshape([pictureOutput.shape[0], 1])
+numClasses = pictureCode
+
+ImageNetwork.quickModel(pictureHolder, pictureOutput, numClasses)

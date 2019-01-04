@@ -10,13 +10,17 @@ import keras
 
 def quickModel(inputs, output, possibleOutcomes):
     
+    oneHotEncoding = keras.utils.np_utils.to_categorical(output)
     model = keras.Sequential()
-    model.add(Conv2D(64, kernel_size=3, activation= 'relu', input_shape=(500,500,3)))
-    model.add(keras.layers.Conv2D(32, kernel_size=3, activation= 'relu'))
+    model.add(keras.layers.Conv2D(4, kernel_size=3, activation= 'relu', input_shape=(500,500,3)))
+    model.add(keras.layers.Conv2D(2, kernel_size=3, activation= 'relu'))
     model.add(keras.layers.Flatten())
-    model.add(keras.layers.Conv2D(possibleOutcomes, activation= 'spftmax'))
+    model.add(keras.layers.Dense(possibleOutcomes))
+    model.add(keras.layers.Activation("softmax"))
     
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy', 'loss'])
-    model.fit(inputs, output, epochs=3)
+    #model.compile(optimizer='adam', loss='mse', metrics=['accuracy', 'loss'])
+    model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
+    model.fit(inputs, oneHotEncoding, epochs=3)
     
-    return model.predict(inputs)
+    temp = model.predict(inputs)
+    return temp
