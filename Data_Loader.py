@@ -14,6 +14,8 @@ import pandas as pd
 import cv2
 import os
 import ImageNetwork
+from matplotlib import pyplot as plt
+
 
 #load all file paths
 file = 'Data Folder/' 
@@ -47,6 +49,7 @@ for folder in picturePaths:
         
         picture = cv2.imread(path, flags = cv2.IMREAD_ANYCOLOR)
         picture = cv2.resize(picture, (pictureX, pictureY))
+        picture = cv2.GaussianBlur(picture,(15,15), 0)
         pictureHolder.append(np.asanyarray(picture))
         counter += 1
         
@@ -63,4 +66,9 @@ pictureOutput = np.asanyarray(pictureOutput)
 pictureOutput = pictureOutput.reshape([pictureOutput.shape[0], 1])
 numClasses = pictureCode
 
-ImageNetwork.quickModel(pictureHolder, pictureOutput, numClasses)
+shuffle = np.random.permutation(pictureOutput.shape[0])
+pictureOutput = pictureOutput[shuffle]
+pictureHolder = pictureHolder[shuffle]
+
+
+#ImageNetwork.quickModel(pictureHolder, pictureOutput, numClasses)
