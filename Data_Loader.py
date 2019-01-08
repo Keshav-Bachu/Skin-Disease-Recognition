@@ -14,6 +14,7 @@ import pandas as pd
 import cv2
 import os
 import ImageNetwork
+import InceptionModel
 from matplotlib import pyplot as plt
 
 
@@ -72,3 +73,4 @@ pictureHolder = pictureHolder[shuffle]
 
 
 #ImageNetwork.quickModel(pictureHolder, pictureOutput, numClasses)
+InceptionModel.tranInceptionModel(pictureHolder, pictureOutput, numClasses)
