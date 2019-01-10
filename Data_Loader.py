@@ -15,6 +15,7 @@ import cv2
 import os
 import ImageNetwork
 import InceptionModel
+import PNASModel
 from matplotlib import pyplot as plt
 
 
@@ -73,4 +74,5 @@ pictureHolder = pictureHolder[shuffle]
 
 
 #ImageNetwork.quickModel(pictureHolder, pictureOutput, numClasses)
-InceptionModel.tranInceptionModel(pictureHolder, pictureOutput, numClasses)
+#InceptionModel.tranInceptionModel(pictureHolder, pictureOutput, numClasses)
+PNASModel.trainPNAS(pictureHolder, pictureOutput, numClasses)
